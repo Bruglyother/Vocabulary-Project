@@ -134,9 +134,45 @@ def hangman(word):
                     trial_word = trial_word + trial[x]
                 x+=1
         if word == trial_word:
-            print('Congratlations!  You have guessed', word+'!')
+            print('Congratulations!  You have guessed', word+'!')
         else:
             print(trial_word)
+    input('Press enter to continue!')
+def wordle(word):
+    #wordle game
+    trial = list()
+    trial_word = ''
+    for letter in word:
+        trial.append('*')
+        trial_word +='*'
+    print('')
+    print('Here is your word!')
+    print(trial_word)
+    attempts = 0
+    guesses = ''
+    while word != trial_word:
+        if attempts == 5:
+            break
+        guess = input('Guess the word: ')
+        if len(guess) != len(trial_word):
+            print('Too many letters!  Please try again.')
+            continue
+        x=0
+        trial_word = ''
+        for letter in word:
+            if guess[x] == word[x]:
+                trial_word +=  word[x]
+            elif guess[x] in word:
+                trial_word +=  '?'
+            else:
+                trial_word += '*'
+            x += 1
+        attempts +=1
+        print(trial_word)
+    if trial_word == word:
+        print('Congratulations!  You have guessed', word+'!')
+    else:
+        print('Oh no!  You failed to guess', word+'!')
     input('Press enter to continue!')
 
 #table of contents
@@ -144,6 +180,7 @@ while True:
     print('''
     Please choose from the following options:
         H: Hangman game
+        W: Wordle game
         C: Create Word List
         V: View a Word List
         Q: Quit
@@ -152,6 +189,8 @@ while True:
     print('')
     if choice.upper() == 'H':
         hangman(random_word(find_wrdlst()).lower())
+    elif choice.upper() == 'W':
+        wordle(random_word(find_wrdlst()).lower())
     elif choice.upper() == 'C':
         create_list()
     elif choice.upper() == 'V':
@@ -169,5 +208,5 @@ while True:
 '''
  Need a way to edit/delete existing word lists or words
  Table of contents - done...but expand as options added.
- Develop Wordle game
+ Find new games to add
 '''
